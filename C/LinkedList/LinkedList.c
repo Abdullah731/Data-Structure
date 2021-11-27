@@ -13,6 +13,28 @@ struct Node
 /*Declare and Initialize HeadNode Pointer To Struct*/
 struct Node * HeadNode = NULL;
 
+void LinkedList_voidInsertNodeAtTail(u8 Copy_u8Data);
+void LinkedList_voidInsertNodeAtSpecificPosition(u8 Copy_u8NodePosition, u8 Copy_u8Data);
+u8   LinkedList_u8DeleteNode(u8 Copy_u8DataToBeDeleted);
+u8   LinkedList_u8SearchInLinkedList(u8 Copy_u8DataToBeSearchFor);
+void LinkedList_voidPrintAllLinkedList(void);
+
+
+
+void main(void)
+{
+    LinkedList_voidInsertNodeAtTail(1);
+    LinkedList_voidInsertNodeAtTail(2);
+    LinkedList_voidInsertNodeAtTail(5);
+    
+    LinkedList_u8SearchInLinkedList(0);
+    
+    LinkedList_u8SearchInLinkedList(1);
+
+    LinkedList_voidPrintAllLinkedList();
+}
+
+
 /*A Function To Insert A Node At The End Of The LinkedList*/
 void LinkedList_voidInsertNodeAtTail(u8 Copy_u8Data)
 {
@@ -83,8 +105,76 @@ void LinkedList_voidInsertNodeAtSpecificPosition(u8 Copy_u8NodePosition, u8 Copy
         }
     }
 }
+u8 LinkedList_u8DeleteNode(u8 Copy_u8DataToBeDeleted)
+{
+    // 0 -> No Error, 1 -> The Data Does Not Exists, 2 -> The Linked List Is Empty.
+    u8 Local_u8ErrorStatus;
+    struct Node * CurrentNode;
+    struct Node * PrevoiusNode;
+    CurrentNode = HeadNode;
+    if(CurrentNode == NULL)
+    {
+        printf("The Linked List Is Empty, Please Insert Some Data\n");
+        return 2;
+    }
+    else
+    {
+        while( (CurrentNode != NULL) && (CurrentNode -> Data != Copy_u8DataToBeDeleted) )
+        {
+            PrevoiusNode = CurrentNode;
+            CurrentNode = CurrentNode -> PointerToTheNextNode;
+        }
+        if(CurrentNode == NULL)
+        {
+            printf("The Entered Data \"%d\" Does Not Exists\n", Copy_u8DataToBeDeleted);
+            return 1;
+        }
+        else
+        {
+            if(Copy_u8DataToBeDeleted == HeadNode -> Data)
+            {
+                HeadNode = HeadNode -> PointerToTheNextNode;
+                free(CurrentNode);
+            }
+            else
+            {
+                PrevoiusNode -> PointerToTheNextNode = CurrentNode -> PointerToTheNextNode;
+                free(CurrentNode);
+            }
+            printf("The Entered Data Has Been Deleted Successfully \n");
+            return 0;
+        }
+    }
+}
 
-void LinkedList_voidPrint(void)
+u8 LinkedList_u8SearchInLinkedList(u8 Copy_u8DataToBeSearchFor)
+{
+    struct Node * TempNode;
+    TempNode = HeadNode;
+    u8 Local_u8Flag = 1;
+    while((TempNode -> Data != Copy_u8DataToBeSearchFor))
+    {
+        TempNode = TempNode -> PointerToTheNextNode;
+        if((TempNode == NULL))
+        {
+            Local_u8Flag = 0;
+            break;
+        }
+    }
+    if(Local_u8Flag == 1)
+    {
+        printf("The Entered Data \"%d\" Found In The Linked List \n", Copy_u8DataToBeSearchFor);
+        return 1;
+    }
+    else
+    {
+        printf("Sorry, The Entered Data \"%d\" Did Not Found In The Linked List\n", Copy_u8DataToBeSearchFor);
+        return 0;
+    }
+
+}
+
+void LinkedList_voidPrintAllLinkedList(void)
 {
     /*Function To Print All Nodes' Data*/
     u8 LoopCounter = 0;
@@ -95,12 +185,4 @@ void LinkedList_voidPrint(void)
         TempNode = TempNode -> PointerToTheNextNode;
         LoopCounter++;
     }
-}
-
-void main(void)
-{
-    LinkedList_voidInsertNodeAtTail(1);
-    LinkedList_voidInsertNodeAtTail(2);
-    LinkedList_voidInsertNodeAtSpecificPosition(2,5);    
-    LinkedList_voidPrint();
 }
