@@ -15,7 +15,7 @@ struct QueueNode
     struct QueueNode * PointerToTheNextNode;
 };
 
-struct QueueNode * HeadNode = NULL;
+struct QueueNode * Front = NULL;
 
 void Queue_voidEnQueue(u8 Copy_u8Data);
 u8   Queue_u8DeQueue(void);
@@ -46,8 +46,8 @@ void Queue_voidEnQueue(u8 Copy_u8Data)
 {
     struct QueueNode * TempNode;
     struct QueueNode * NewNode = (struct QueueNode *)malloc(sizeof(struct QueueNode));
-    TempNode = HeadNode;
-    HeadNode = NewNode;
+    TempNode = Front;
+    Front = NewNode;
     NewNode -> Data = Copy_u8Data;
     NewNode -> PointerToTheNextNode = TempNode;
 }
@@ -60,8 +60,8 @@ u8   Queue_u8DeQueue(void)
         return;
     }
     struct QueueNode * CurrentNode;
-    CurrentNode = HeadNode;
-    HeadNode = CurrentNode -> PointerToTheNextNode;
+    CurrentNode = Front;
+    Front = CurrentNode -> PointerToTheNextNode;
     Local_u8Data = CurrentNode -> Data;
     free(CurrentNode);
     return Local_u8Data;
@@ -73,12 +73,12 @@ u8   Queue_u8Front(void)
     {
         return;
     }
-    return HeadNode -> Data;
+    return Front -> Data;
 }
 
 u8   Queue_u8IsEmpty(void)
 {
-    if(HeadNode == NULL)
+    if(Front == NULL)
     {
         printf("Queue Underflow!\n");
         return 0;

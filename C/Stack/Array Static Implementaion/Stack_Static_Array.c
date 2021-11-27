@@ -16,8 +16,8 @@ u8 DataArray[MAX_SIZE] = {0};
 s8 TOP = -1;
 
 void    Stack_voidPush(u8 Copy_u8Data);
-u8      Stack_u8Pop(void);
-u8      Stack_u8Top(void);
+void    Stack_voidPop(void);
+void    Stack_voidTop(void);
 u8      Stack_u8IsEmpty(void);
 u8      Stack_u8IsFull(void);
 
@@ -26,7 +26,7 @@ u8      Stack_u8IsFull(void);
 void main(void)
 {
     /* ------------ Checking The Stack Pop Underflow --------------- */
-    // printf("%d\n",Stack_u8Pop());
+    // Stack_voidPop();
 
     /* ------------ Checking The Stack Overflow --------------- */
     // Stack_voidPush(1);
@@ -38,17 +38,17 @@ void main(void)
 
 
     /* ------------ Checking The Stack Underflow --------------- */
-    Stack_voidPush(1);
-    Stack_voidPush(4);
-    Stack_voidPush(2);
-    Stack_voidPush(3);
-    Stack_voidPush(8);
-    printf("%d\n",Stack_u8Pop());
-    printf("%d\n",Stack_u8Pop());
-    printf("%d\n",Stack_u8Pop());
-    printf("%d\n",Stack_u8Pop());
-    printf("%d\n",Stack_u8Pop());
-    printf("%d\n",Stack_u8Pop());
+    // Stack_voidPush(1);
+    // Stack_voidPush(4);
+    // Stack_voidPush(2);
+    // Stack_voidPush(3);
+    // Stack_voidPush(8);
+    // Stack_voidPop();
+    // Stack_voidPop();
+    // Stack_voidPop();
+    // Stack_voidPop();
+    // Stack_voidPop();
+    // Stack_voidPop();
 
     /* ------------ Checking The Stack Pushing and Popping --------------- */
     // Stack_voidPush(1);
@@ -56,14 +56,14 @@ void main(void)
     // Stack_voidPush(2);
     // Stack_voidPush(3);
     // Stack_voidPush(8);
-    // printf("%d\n",Stack_u8Pop());
+    // Stack_voidPop();
     // Stack_voidPush(6);
-    // printf("%d\n",Stack_u8Pop());
+    // Stack_voidPop();
 
     /* ------------ Test The Top Function --------------- */
-    // Stack_voidPush(8);
-    // printf("%d\n", Stack_u8Top());
-    // printf("%d\n", Stack_u8Top());
+    Stack_voidPush(8);
+    Stack_voidTop();
+    Stack_voidTop();
 }
 
 
@@ -81,7 +81,7 @@ void Stack_voidPush(u8 Copy_u8Data)
 
 }
 
-u8 Stack_u8Pop(void)
+void Stack_voidPop(void)
 {
     u8 Local_u8Data;
     if(Stack_u8IsEmpty() == 1)
@@ -90,16 +90,15 @@ u8 Stack_u8Pop(void)
     }
     else
     {
-        Local_u8Data = DataArray[TOP--];
-        return Local_u8Data;
+        printf("%d\n", DataArray[TOP--]);
     }
 }
 
-u8 Stack_u8Top(void)
+void Stack_voidTop(void)
 {
     if(Stack_u8IsEmpty() != 1)
     {
-        return DataArray[TOP];
+        printf("%d\n", DataArray[TOP]);
     }
     
 }
