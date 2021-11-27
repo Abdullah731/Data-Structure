@@ -14,7 +14,7 @@ struct Node
 struct Node * HeadNode = NULL;
 
 /*A Function To Insert A Node At The End Of The LinkedList*/
-void LinkedList_voidTailInsert(u8 Copy_u8Data)
+void LinkedList_voidInsertNodeAtTail(u8 Copy_u8Data)
 {
     /*Check if there is any node already in the linkedlist*/
     if(HeadNode == NULL)
@@ -47,6 +47,43 @@ void LinkedList_voidTailInsert(u8 Copy_u8Data)
     }
 }
 
+void LinkedList_voidInsertNodeAtSpecificPosition(u8 Copy_u8NodePosition, u8 Copy_u8Data)
+{
+    /*Check if the linked list is empty*/
+    if(HeadNode == NULL)
+    {
+        /*Calling the InsertNodeAtTail function to add this node*/
+        LinkedList_voidInsertNodeAtTail(Copy_u8Data);
+    }
+    else
+    {
+        u8 LoopCounter;
+        struct Node * NewNode = (struct Node *)malloc(sizeof(struct Node));
+        struct Node * TempNode;
+        TempNode = HeadNode;
+        NewNode -> Data = Copy_u8Data;
+        /*Check if the Position was 0, then the Node Should be at the beginning of the linked list*/
+        if(Copy_u8NodePosition == 0)
+        {
+            NewNode -> PointerToTheNextNode  = HeadNode;
+            HeadNode = NewNode;
+        }
+        else
+        {
+            for(LoopCounter = 0; LoopCounter < (Copy_u8NodePosition-1); LoopCounter++)
+            {
+                if(TempNode -> PointerToTheNextNode == NULL)
+                {
+                    break;
+                }
+                TempNode = TempNode -> PointerToTheNextNode;
+            }
+            NewNode -> PointerToTheNextNode = TempNode -> PointerToTheNextNode;
+            TempNode -> PointerToTheNextNode = NewNode;
+        }
+    }
+}
+
 void LinkedList_voidPrint(void)
 {
     /*Function To Print All Nodes' Data*/
@@ -62,10 +99,8 @@ void LinkedList_voidPrint(void)
 
 void main(void)
 {
-    LinkedList_voidTailInsert(1);
-    LinkedList_voidTailInsert(2);
-    LinkedList_voidTailInsert(3);
-    LinkedList_voidTailInsert(4);
-    
+    LinkedList_voidInsertNodeAtTail(1);
+    LinkedList_voidInsertNodeAtTail(2);
+    LinkedList_voidInsertNodeAtSpecificPosition(2,5);    
     LinkedList_voidPrint();
 }
