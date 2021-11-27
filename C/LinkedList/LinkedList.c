@@ -1,8 +1,16 @@
+/********************************************************************
+*  Author  :     Abdullah M. Abdullah
+*  Date    :     26 NOV, 2021
+*  Version :     v1.0
+*  Descrip :     Implementation of The Linked List With Dynamic 
+*                Memory Allocation.
+********************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include "../utils/STD_TYPES.h"
 
 #define     NULL        (void*)0
+
 // Create a Struct
 struct Node
 {
